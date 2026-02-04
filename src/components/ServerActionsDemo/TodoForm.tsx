@@ -13,8 +13,9 @@ export default function TodoForm() {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		const formElement = e.currentTarget;
 
-		const formData = new FormData(e.currentTarget);
+		const formData = new FormData(formElement);
 		const text = formData.get("todo") as string;
 
 		if (!text.trim()) return;
@@ -22,7 +23,7 @@ export default function TodoForm() {
 		startTransition(async () => {
 			const newTodo = await createTodo(text);
 			setTodos((prev) => [...prev, newTodo]);
-			e.currentTarget.reset();
+			formElement.reset();
 		});
 	};
 

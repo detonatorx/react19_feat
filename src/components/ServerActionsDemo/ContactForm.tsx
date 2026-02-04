@@ -13,8 +13,9 @@ export default function ContactForm() {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		const formElement = e.currentTarget;
 
-		const formData = new FormData(e.currentTarget);
+		const formData = new FormData(formElement);
 		const data = {
 			name: formData.get("name") as string,
 			email: formData.get("email") as string,
@@ -25,7 +26,7 @@ export default function ContactForm() {
 			try {
 				const result = await submitContactForm(data);
 				setStatus({ type: "success", message: result.message });
-				e.currentTarget.reset();
+				formElement.reset();
 			} catch (error) {
 				setStatus({
 					type: "error",
